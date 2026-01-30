@@ -1,0 +1,30 @@
+{
+    "id": "feishu",
+    "name": "Feishu",
+    "description": "Feishu (Lark) Bot integration via Socket Mode",
+    "channels": [
+        "feishu"
+    ],
+    "configSchema": {
+        "type": "object",
+        "properties": {
+            "enabled": {
+                "type": "boolean"
+            },
+            "appId": {
+                "type": "string"
+            },
+            "appSecret": {
+                "type": "string"
+            },
+            "dmPolicy": {
+                "type": "string",
+                "enum": [
+                    "open",
+                    "disabled",
+                    "allowlist"
+                ]
+            }
+        }
+    }
+}

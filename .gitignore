@@ -1,0 +1,29 @@
+# 敏感信息 - 不要提交
+openclaw.json
+openclaw.json.bak*
+credentials/
+exec-approvals.json
+
+# 日志和缓存
+logs/
+*.log
+update-check.json
+
+# 媒体文件
+media/
+
+# Session 数据
+agents/*/sessions/
+
+# Telegram 数据
+telegram/
+
+# Node modules
+node_modules/
+extensions/*/node_modules/
+
+# 系统文件
+.DS_Store
+
+# workspace 是独立的 git 仓库
+workspace/

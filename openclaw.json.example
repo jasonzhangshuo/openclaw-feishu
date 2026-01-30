@@ -1,0 +1,38 @@
+{
+  "$schema": "https://schema.openclaw.ai/config.json",
+  "gateway": {
+    "auth": {
+      "token": "YOUR_GATEWAY_TOKEN"
+    }
+  },
+  "models": {
+    "qwen-portal/coder-model": {
+      "provider": "openai-compat",
+      "model": "YOUR_MODEL_NAME",
+      "baseUrl": "YOUR_API_BASE_URL",
+      "apiKey": "YOUR_API_KEY"
+    }
+  },
+  "agents": {
+    "defaults": {
+      "model": {
+        "primary": "qwen-portal/coder-model"
+      },
+      "workspace": "/Users/YOUR_USER/.openclaw/workspace"
+    }
+  },
+  "channels": {
+    "telegram": {
+      "enabled": true,
+      "botToken": "YOUR_TELEGRAM_BOT_TOKEN",
+      "dmPolicy": "allowlist",
+      "allowFrom": ["YOUR_TELEGRAM_USER_ID"]
+    },
+    "feishu": {
+      "enabled": true,
+      "appId": "YOUR_FEISHU_APP_ID",
+      "appSecret": "YOUR_FEISHU_APP_SECRET",
+      "dmPolicy": "open"
+    }
+  }
+}
