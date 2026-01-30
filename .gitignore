@@ -4,6 +4,15 @@ openclaw.json.bak*
 credentials/
 exec-approvals.json
 
+# 认证和设备信息
+agents/*/agent/auth-profiles.json
+agents/*/agent/models.json
+devices/
+identity/
+
+# Cron 任务（可能包含敏感信息）
+cron/*.bak
+
 # 日志和缓存
 logs/
 *.log

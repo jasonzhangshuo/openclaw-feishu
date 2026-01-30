@@ -1,4 +1,47 @@
 {
   "version": 1,
-  "jobs": []
+  "jobs": [
+    {
+      "id": "6b8609c4-b0b3-4911-88e5-46aa51e1c8ca",
+      "agentId": "main",
+      "name": "Daily Dankoe Article Fetch",
+      "enabled": true,
+      "createdAtMs": 1769769773105,
+      "updatedAtMs": 1769769773105,
+      "schedule": {
+        "kind": "cron",
+        "expr": "0 8 * * *"
+      },
+      "sessionTarget": "isolated",
+      "wakeMode": "next-heartbeat",
+      "payload": {
+        "kind": "agentTurn",
+        "message": "获取最新的Dankoe或类似风格作者的Substack文章"
+      },
+      "state": {
+        "nextRunAtMs": 1769817600000
+      }
+    },
+    {
+      "id": "087e7eef-d93d-4f18-9093-a54d5fcfa3f3",
+      "agentId": "main",
+      "name": "Weekly Todo Summary",
+      "enabled": true,
+      "createdAtMs": 1769770255403,
+      "updatedAtMs": 1769770255403,
+      "schedule": {
+        "kind": "cron",
+        "expr": "0 9 * * 1"
+      },
+      "sessionTarget": "isolated",
+      "wakeMode": "next-heartbeat",
+      "payload": {
+        "kind": "agentTurn",
+        "message": "生成周度待办事项总结报告"
+      },
+      "state": {
+        "nextRunAtMs": 1769994000000
+      }
+    }
+  ]
 }

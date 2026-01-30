@@ -217,8 +217,8 @@ export async function dispatchFeishuMessage(params) {
         skippedNonSilent: 0,
     };
 
-    // 收集所有回复块，最后一次性发送
-    let collectedText = '';
+    // 只发送一次最终回复
+    let finalReplySent = false;
     
     try {
         await dispatchReplyWithBufferedBlockDispatcher({
@@ -229,28 +229,27 @@ export async function dispatchFeishuMessage(params) {
                     const kind = info?.kind || 'unknown';
                     log(runtime, 'info', `Received ${kind} reply: ${payload.text?.substring(0, 50)}...`);
                     
-                    // 收集文本
-                    if (payload.text) {
-                        collectedText += payload.text;
+                    // 只发送一次，避免重复
+                    if (finalReplySent) {
+                        log(runtime, 'info', `Skipping duplicate reply`);
+                        return;
                     }
                     
-                    // 只在 final 时发送，避免多条消息
-                    if (kind === 'final') {
-                        const textToSend = collectedText.trim() || payload.text;
-                        if (textToSend) {
-                            log(runtime, 'info', `Sending final reply: ${textToSend.substring(0, 100)}...`);
-                            try {
-                                await client.sendMessage({
-                                    receiveId: peerId,
-                                    receiveIdType: isDirect ? 'open_id' : 'chat_id',
-                                    content: { text: textToSend },
-                                });
-                                deliveryState.delivered = true;
-                                log(runtime, 'info', `Reply delivered successfully`);
-                            } catch (err) {
-                                log(runtime, 'error', `Failed to deliver reply: ${err.message}`);
-                                throw err;
-                            }
+                    // 只在 final 时发送
+                    if (kind === 'final' && payload.text) {
+                        finalReplySent = true;
+                        log(runtime, 'info', `Sending final reply: ${payload.text.substring(0, 100)}...`);
+                        try {
+                            await client.sendMessage({
+                                receiveId: peerId,
+                                receiveIdType: isDirect ? 'open_id' : 'chat_id',
+                                content: { text: payload.text },
+                            });
+                            deliveryState.delivered = true;
+                            log(runtime, 'info', `Reply delivered successfully`);
+                        } catch (err) {
+                            log(runtime, 'error', `Failed to deliver reply: ${err.message}`);
+                            throw err;
                         }
                     }
                 },
