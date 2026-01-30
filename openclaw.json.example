@@ -6,17 +6,41 @@
     }
   },
   "models": {
-    "qwen-portal/coder-model": {
-      "provider": "openai-compat",
-      "model": "YOUR_MODEL_NAME",
-      "baseUrl": "YOUR_API_BASE_URL",
-      "apiKey": "YOUR_API_KEY"
+    "providers": {
+      "deepseek": {
+        "baseUrl": "https://api.deepseek.com/v1",
+        "apiKey": "YOUR_DEEPSEEK_API_KEY",
+        "api": "openai-completions",
+        "models": [
+          {
+            "id": "deepseek-coder",
+            "name": "DeepSeek Coder",
+            "input": ["text"],
+            "contextWindow": 128000,
+            "maxTokens": 8192
+          }
+        ]
+      },
+      "qwen-portal": {
+        "baseUrl": "https://portal.qwen.ai/v1",
+        "apiKey": "qwen-oauth",
+        "api": "openai-completions",
+        "models": [
+          {
+            "id": "coder-model",
+            "name": "Qwen Coder",
+            "input": ["text"],
+            "contextWindow": 128000,
+            "maxTokens": 8192
+          }
+        ]
+      }
     }
   },
   "agents": {
     "defaults": {
       "model": {
-        "primary": "qwen-portal/coder-model"
+        "primary": "deepseek/deepseek-coder"
       },
       "workspace": "/Users/YOUR_USER/.openclaw/workspace"
     }
